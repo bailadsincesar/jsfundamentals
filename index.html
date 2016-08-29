@@ -1,27 +1,32 @@
 <html>
-    <head>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <title>Contacts</title>
+</head>
 
-    <body>
-        <h1>Users</h1>
-        <button id="newuser-btn">New User</button>
-        <table border="1" id="contacts-tbl">
-            <tr>
-                <td>Nombre</td>
-                <td>Apellido</td>
-                <td>Email</td>
-                <td>Phone Number</td>
-                <td></td>
-            </tr>
-            <tr>
-            </tr>
-        </table>
-    </body>
+<body>
 
-    <script src="https://code.jquery.com/jquery-3.1.0.js" integrity="sha256-slogkvB1K3VOkzAI8QITxV3VzpOnkeNVsKvtkYLMjfk=" crossorigin="anonymous"></script>
-    <script src="server.min.js"></script>
-    <script src="persons.js"></script>
-    <script src="contactTable.js"></script>
-    <script src="contactManager.js"></script>
-    <script src="main.js"></script>
+    <h1>Contacts</h1>
+    <button id="newuser-btn">New User</button>
+    <table border="1" id="contacts-tbl">
+        <tr>
+            <td>NAME</td>
+            <td>EMAIL</td>
+            <td>PHONE NUMBER</td>
+            <td>EDIT</td>
+            <td>DELETE</td>
+            <td>
+                <button class="bulkdelete-btn">DELETE</button>
+            </td>
+        </tr>
+    </table>
+
+</body>
+
+<script src="https://code.jquery.com/jquery-3.1.0.js" integrity="sha256-slogkvB1K3VOkzAI8QITxV3VzpOnkeNVsKvtkYLMjfk=" crossorigin="anonymous"></script>
+<script src="server.js"></script>
+<script src="persons.js"></script>
+<script src="contactTable.js"></script>
+<script src="contactManager.js"></script>
+<script src="main.js"></script>
 </html>

@@ -46,12 +46,12 @@
 
     function updateContact(contact) {
         return simulateServerCall().then(function () {
-            if (!contact || !contact.id || !getContactsObject()[contact.id]) {
+            if (!contact || !contact.contactId || !getContactsObject()[contact.contactId]) {
                 throw "Contact could not be found";
             }
 
             var contacts = getContactsObject();
-            contacts[contact.id] = contact;
+            contacts[contact.contactId] = contact;
             setContactsObject(contacts);
             return contact;
         });

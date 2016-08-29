@@ -8,12 +8,12 @@
         location.href = 'contact-add.html';
     });
 
-    $("body").on("click", ".delete-btn", function() {
+    $('body').on('click', '.delete-btn', function() {
         console.log($(this).data('x'));
         contactManager.deleteContact($(this).data('x'));
     });
 
-    $("body").on("click", ".bulkdelete-btn", function() {
+    $('body').on('click', '.bulkdelete-btn', function() {
         var boxes = $('.removable');
         var ids = [];
         var id;
@@ -24,6 +24,10 @@
             }
         }
         contactManager.bulkDeleteContacts(ids);
+    });
+    
+    $('body').on('click', '.editable', function () {
+       location.href = 'contact-add.html?id=' + $(this).data('id');
     });
 
 })(ContactManager);

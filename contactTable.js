@@ -21,7 +21,7 @@ var ContactTable = (function () {
             row += '<td>' + contact.getFullName() + '</td>';
             row += '<td>' + contact.email + '</td>';
             row += '<td>' + contact.phone + '</td>';
-            row += '<td><button>Edit</button></td>';
+            row += '<td><button class="editable" data-id="' + contact.contactId + '">Edit</button></td>';
             row += "<td><button class='delete-btn' data-x='" + JSON.stringify(contact) + "'>Delete</button></td>";
             row += '<td><input class="removable" data-id="' + contact.contactId + '" type="checkbox"></td>';
             row += '</tr>';

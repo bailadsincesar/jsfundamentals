@@ -9,9 +9,16 @@ var ContactManager = (function ($, persons, ContactTable) {
             $.ajax('/contacts', {method: 'GET'}).then(
                 function (data) {
                     var contacts = parseToContactsArray(data);
-                    contactTable.populateTable(contacts);
-                },
-                alert
+                    if (contacts.length > 0) {
+                        contactTable.populateTable(contacts);
+                    } else {
+                        alert('The contacts list is empty.');
+                    }
+                }
+            ).catch(
+                function (data) {
+                    alert('There was an error retrieving contacts list.');
+                }
             );
         }
 
@@ -33,13 +40,16 @@ var ContactManager = (function ($, persons, ContactTable) {
                 }
             ).then(
                 function (data){
-                    $('#message').text('');
                     alert('Contact successfuly created!');
+                    $('#message').text('');
                     location.href = 'index.html';
-                },
-                alert
+                }
+            ).catch(
+                function (data) {
+                    alert('There was an error creating contact. Try again.');
+                    $('#message').text('');
+                }
             );
-
         }
 
         this.deleteContact = function (contact) {
@@ -49,8 +59,11 @@ var ContactManager = (function ($, persons, ContactTable) {
                 $.ajax('/contacts/' + contact.contactId, {method: 'DELETE'}).then(
                     function (data) {
                         location.href = 'index.html';
-                    },
-                    alert
+                    }
+                ).catch(
+                    function (data) {
+                        alert('There was an error deleting contact.');
+                    }
                 );
             }
         }
@@ -60,13 +73,54 @@ var ContactManager = (function ($, persons, ContactTable) {
 
             if (accepts) {
                 for (var i = 0; i < contactIds.length; i++) {
-                    console.log(contactIds[i]);
-                    $.ajax('/contacts/' + contactIds[i], {method: 'DELETE'}).then();
+                    $.ajax('/contacts/' + contactIds[i], {method: 'DELETE'});
                 }
             }
 
             location.href = 'index.html';
+        }
 
+        this.populateForm = function (formId, contactId) {
+            $.ajax('/contacts/' + contactId, {method: 'GET'}).then(
+                function (data) {
+                    $("#" + formId + " input[name='name']").val(data.name);
+                    $("#" + formId + " input[name='lastname']").val(data.lastName);
+                    $("#" + formId + " input[name='email']").val(data.email);
+                    $("#" + formId + " input[name='phone']").val(data.phone);
+                },
+                alert
+            );
+        }
+
+        this.updateContact = function (formId, contactId) {
+            $('#message').text('Updating contact. Please wait...');
+
+            $.ajax(
+                '/contacts/' + contactId,
+                {
+                    method: "PUT",
+                    data: {
+                        contact: {
+                            contactId: contactId,
+                            name: $("#" + formId + " input[name='name']").val(),
+                            lastName: $("#" + formId + " input[name='lastname']").val(),
+                            email: $("#" + formId + " input[name='email']").val(),
+                            phone: $("#" + formId + " input[name='phone']").val(),
+                        }
+                    }
+                }
+            ).then(
+                function (data){
+                    alert('Contact successfuly updated!');
+                    $('#message').text('');
+                    location.href = 'index.html';
+                }
+            ).catch(
+                function (data) {
+                    alert('There was an error updating contact. Try again.');
+                    $('#message').text('');
+                }
+            );
         }
 
         function parseToContactsArray(data) {
